@@ -1,4 +1,4 @@
-package com.ltp.gradesubmission.exception;
+package com.ltp.gradesubmission.validation;
 
 import java.util.List;
 import org.springframework.http.HttpHeaders;

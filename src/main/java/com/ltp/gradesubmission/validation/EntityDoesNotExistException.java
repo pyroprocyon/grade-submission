@@ -1,8 +1,9 @@
-package com.ltp.gradesubmission.exception;
+package com.ltp.gradesubmission.validation;
 
 public class EntityDoesNotExistException extends RuntimeException {
 
   public EntityDoesNotExistException(String entity, Long id) {
-    super(String.format("%s with id '%d' does not exist in our records", entity, id));
+    super("%s with id '%d' does not exist in our records".formatted(entity, id));
   }
+
 }

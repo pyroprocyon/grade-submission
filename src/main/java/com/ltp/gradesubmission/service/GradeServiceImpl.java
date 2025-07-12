@@ -1,9 +1,17 @@
 package com.ltp.gradesubmission.service;
 
 import com.ltp.gradesubmission.entity.Grade;
+import com.ltp.gradesubmission.repository.GradeRepository;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
+@Service
+@RequiredArgsConstructor
 public class GradeServiceImpl implements GradeService {
+
+  private final GradeRepository gradeRepository;
+  private final StudentService studentService;
 
   @Override
   public Grade getGrade(Long studentId, Long courseId) {
@@ -12,7 +20,8 @@ public class GradeServiceImpl implements GradeService {
 
   @Override
   public Grade saveGrade(Grade grade, Long studentId, Long courseId) {
-    return null;
+    grade.setStudent(studentService.getStudent(studentId));
+    return gradeRepository.save(grade);
   }
 
   @Override
@@ -22,12 +31,11 @@ public class GradeServiceImpl implements GradeService {
 
   @Override
   public void deleteGrade(Long studentId, Long courseId) {
-
   }
 
   @Override
   public List<Grade> getStudentGrades(Long studentId) {
-    return null;
+    return gradeRepository.findByStudentId(studentId);
   }
 
   @Override
@@ -37,7 +45,7 @@ public class GradeServiceImpl implements GradeService {
 
   @Override
   public List<Grade> getAllGrades() {
-    return null;
+    return gradeRepository.findAll();
   }
 
 }

@@ -1,4 +1,4 @@
-package com.ltp.gradesubmission.exception;
+package com.ltp.gradesubmission.validation;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
