@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class GradeController {
 
   private final GradeService service;
-  private final GradeService gradeService;
 
   @GetMapping
   public ResponseEntity<List<GradeDto>> getGrades() {
@@ -64,7 +63,7 @@ public class GradeController {
   @DeleteMapping("/students/{studentId}/courses/{courseId}")
   public ResponseEntity<HttpStatus> deleteGrade(@PathVariable Long studentId,
       @PathVariable Long courseId) {
-    gradeService.deleteGrade(studentId, courseId);
+    service.deleteGrade(studentId, courseId);
     return ResponseEntity.noContent().build();
   }
 
