@@ -1,4 +1,4 @@
-package com.ltp.gradesubmission.validation;
+package com.ltp.gradesubmission.exception;
 
 public class EntityDoesNotExistException extends RuntimeException {
 

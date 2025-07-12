@@ -2,10 +2,10 @@ package com.ltp.gradesubmission.service;
 
 import com.ltp.gradesubmission.dto.StudentDto;
 import com.ltp.gradesubmission.entity.Student;
+import com.ltp.gradesubmission.exception.EntityAlreadyExistException;
+import com.ltp.gradesubmission.exception.EntityDoesNotExistException;
 import com.ltp.gradesubmission.mapper.StudentMapper;
 import com.ltp.gradesubmission.repository.StudentRepository;
-import com.ltp.gradesubmission.validation.EntityAlreadyExistException;
-import com.ltp.gradesubmission.validation.EntityDoesNotExistException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
