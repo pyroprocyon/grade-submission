@@ -13,4 +13,10 @@ public class EntityAlreadyExistException extends RuntimeException {
     super("The course '%s' with subject code '%s' already exists in our records"
         .formatted(subject, code));
   }
+
+  public EntityAlreadyExistException(Long studentId, Long courseId) {
+    super(
+        "A grade already exists for student ID '%d' and course ID '%d'. Please update the existing record instead."
+            .formatted(studentId, courseId));
+  }
 }

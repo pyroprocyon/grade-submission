@@ -24,11 +24,11 @@ public class StudentServiceImpl implements StudentService {
 
   @Override
   public Student saveStudent(StudentDto dto) {
-    repository.findByNameAndBirthDate(dto.getName(), dto.getBirthDate())
-        .ifPresent(s -> {
-          throw new EntityAlreadyExistException(s.getName(), s.getBirthDate());
-        });
-    return repository.save(StudentMapper.dtoToStudent(dto));
+    if (repository.findByNameAndBirthDate(dto.getName(), dto.getBirthDate()).isPresent()) {
+      throw new EntityAlreadyExistException(dto.getName(), dto.getBirthDate());
+    }
+    Student student = StudentMapper.dtoToStudent(dto);
+    return repository.save(student);
   }
 
   @Override

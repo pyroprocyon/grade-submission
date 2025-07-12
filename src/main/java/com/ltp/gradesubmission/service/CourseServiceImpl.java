@@ -16,18 +16,15 @@ public class CourseServiceImpl implements CourseService {
 
   @Override
   public Course getCourse(Long id) {
-    return repository.findById(id).orElseThrow(
-        () -> new EntityDoesNotExistException("Course", id)
-    );
+    return repository.findById(id)
+        .orElseThrow(() -> new EntityDoesNotExistException("Course", id));
   }
 
   @Override
   public Course saveCourse(Course course) {
-    repository.findBySubjectAndCode(course.getSubject(), course.getCode()).ifPresent(
-        c -> {
-          throw new EntityAlreadyExistException(c.getSubject(), c.getCode());
-        }
-    );
+    if (repository.findBySubjectAndCode(course.getSubject(), course.getCode()).isPresent()) {
+      throw new EntityAlreadyExistException(course.getSubject(), course.getCode());
+    }
     return repository.save(course);
   }
 

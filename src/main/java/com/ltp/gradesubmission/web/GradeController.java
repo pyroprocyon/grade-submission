@@ -1,5 +1,6 @@
 package com.ltp.gradesubmission.web;
 
+import com.ltp.gradesubmission.dto.GradeDto;
 import com.ltp.gradesubmission.entity.Grade;
 import com.ltp.gradesubmission.service.GradeService;
 import jakarta.validation.Valid;
@@ -22,29 +23,31 @@ import org.springframework.web.bind.annotation.RestController;
 public class GradeController {
 
   private final GradeService service;
+  private final GradeService gradeService;
 
   @GetMapping
-  public ResponseEntity<List<Grade>> getGrades() {
+  public ResponseEntity<List<GradeDto>> getGrades() {
     return ResponseEntity.ok(service.getAllGrades());
   }
 
   @GetMapping("/students/{studentId}")
-  public ResponseEntity<List<Grade>> getStudentGrades(@PathVariable Long studentId) {
+  public ResponseEntity<List<GradeDto>> getStudentGrades(@PathVariable Long studentId) {
     return ResponseEntity.ok(service.getStudentGrades(studentId));
   }
 
   @GetMapping("/courses/{courseId}")
-  public ResponseEntity<List<Grade>> getCourseGrades(@PathVariable Long courseId) {
-    return new ResponseEntity<>(HttpStatus.OK);
+  public ResponseEntity<List<GradeDto>> getCourseGrades(@PathVariable Long courseId) {
+    return ResponseEntity.ok(service.getCourseGrades(courseId));
   }
 
   @GetMapping("/students/{studentId}/courses/{courseId}")
-  public ResponseEntity<Grade> getGrade(@PathVariable Long studentId, @PathVariable Long courseId) {
+  public ResponseEntity<GradeDto> getGrade(@PathVariable Long studentId,
+      @PathVariable Long courseId) {
     return ResponseEntity.ok(service.getGrade(studentId, courseId));
   }
 
   @PostMapping("/students/{studentId}/courses/{courseId}")
-  public ResponseEntity<Grade> saveGrade(@RequestBody @Valid Grade grade,
+  public ResponseEntity<GradeDto> saveGrade(@RequestBody @Valid Grade grade,
       @PathVariable Long studentId,
       @PathVariable Long courseId) {
     return ResponseEntity.status(HttpStatus.CREATED)
@@ -52,15 +55,17 @@ public class GradeController {
   }
 
   @PutMapping("/students/{studentId}/courses/{courseId}")
-  public ResponseEntity<Grade> updateGrade(@RequestBody Grade grade, @PathVariable Long studentId,
+  public ResponseEntity<GradeDto> updateGrade(@RequestBody Grade grade,
+      @PathVariable Long studentId,
       @PathVariable Long courseId) {
-    return new ResponseEntity<>(grade, HttpStatus.OK);
+    return ResponseEntity.ok(service.updateGrade(grade, studentId, courseId));
   }
 
   @DeleteMapping("/students/{studentId}/courses/{courseId}")
   public ResponseEntity<HttpStatus> deleteGrade(@PathVariable Long studentId,
       @PathVariable Long courseId) {
-    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    gradeService.deleteGrade(studentId, courseId);
+    return ResponseEntity.noContent().build();
   }
 
 }
